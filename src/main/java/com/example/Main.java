@@ -12,30 +12,13 @@ public class Main {
 
         System.out.println("server avviato");
         ServerSocket server = new ServerSocket(3000);
-        Socket s = server.accept();
-        System.out.println("un client si è collegato");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        DataOutputStream out = new DataOutputStream(s.getOutputStream());
-
-        
-        String stringaRicevuta;
 
         do{
-            stringaRicevuta = in.readLine();
-            
-            if(!stringaRicevuta.equals("!")){
-                
-                System.out.println("La stringa ricevuta: " + stringaRicevuta);
-                String stringaMaiuscola = stringaRicevuta.toUpperCase();
-                out.writeBytes(stringaMaiuscola + '\n');
-            }  
-        }while(!stringaRicevuta.equals("!"));
+            Socket s = server.accept();
+            System.out.println("un client si è collegato");
+            MioThread t = new MioThread(s);
+            t.start();
+        }while(true);
         
-
-        s.close();
-        server.close();
-
-
     }
 }
