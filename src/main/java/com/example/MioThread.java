@@ -5,6 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.lang.*;
+import java.io.*;
+import java.util.*;
 
 public class MioThread extends Thread{
     Socket s;
@@ -22,15 +25,43 @@ public class MioThread extends Thread{
             String stringaRicevuta;
 
             do{
+
                 stringaRicevuta = in.readLine();
-                
-                if(!stringaRicevuta.equals("!")){
+
+                switch(stringaRicevuta){
+                    case "U":
+                        out.writeBytes("frase?" + "\n");
+                        String stringaMaiuscola = in.readLine().toUpperCase();
+                        out.writeBytes(stringaMaiuscola + '\n');
+                        break;
+
+                    case "L":
+                        out.writeBytes("frase?" + "\n");
+                        String stringaMinuscola = in.readLine().toLowerCase();
+                        out.writeBytes(stringaMinuscola + '\n');
+                        break; 
                     
-                    System.out.println("La stringa ricevuta: " + stringaRicevuta);
-                    String stringaMaiuscola = stringaRicevuta.toUpperCase();
-                    out.writeBytes(stringaMaiuscola + '\n');
-                }  
-            }while(!stringaRicevuta.equals("!"));
+                    case "R": 
+                        out.writeBytes("frase?" + "\n");
+                        String input = in.readLine();
+                        StringBuilder input1 = new StringBuilder();
+                        input1.append(input);
+                        input1.reverse();
+                        input = input1.toString();
+                        out.writeBytes(input + '\n');
+                        break;
+                    
+                        case "C":
+                        out.writeBytes("frase?" + "\n");
+                        int cont = in.readLine().length();
+                        stringaRicevuta = String.valueOf(cont);
+                        out.writeBytes(stringaRicevuta + '\n');
+                        break;
+                }
+
+                
+                
+            }while(!stringaRicevuta.equals("0"));
             s.close();
             
         } catch (IOException e) {
