@@ -60,6 +60,10 @@ public class MioThread extends Thread{
                     
                     case "!":
                         break;
+                    
+                    default:
+                        out.writeBytes("!!" + '\n');
+                        break;
 
                 }
 
