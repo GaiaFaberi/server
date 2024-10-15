@@ -51,17 +51,21 @@ public class MioThread extends Thread{
                         out.writeBytes(input + '\n');
                         break;
                     
-                        case "C":
+                    case "C":
                         out.writeBytes("frase?" + "\n");
                         int cont = in.readLine().length();
                         stringaRicevuta = String.valueOf(cont);
                         out.writeBytes(stringaRicevuta + '\n');
                         break;
+                    
+                    case "!":
+                        break;
+
                 }
 
                 
                 
-            }while(!stringaRicevuta.equals("0"));
+            }while(!stringaRicevuta.equals("!"));
             s.close();
             
         } catch (IOException e) {
